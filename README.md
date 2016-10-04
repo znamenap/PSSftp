@@ -42,4 +42,6 @@ Though, I started searching for already existing solutions of SFTP support in Po
 - *[WinSCP - Using WinSCP .NET Assembly from PowerShell](https://winscp.net/eng/docs/library_powershell)*
 - *[The Power of PowerShell](http://www.jamsscheduler.com/doc/JAMSHelp/ThePowerofPowerShell.html)*
 - *[Download SFTP PowerShell Snap-In](http://www.k-tools.nl/index.php/download-sftp-powershell-snap-in/)*
-NOTE: Well, that's not much, right. Plus, even much compatible yet with the motivation, if you found something similiar, ping me back.
+
+
+*NOTE: Well, that's not much, right. Plus, even much compatible yet with the motivation, if you found something similiar, ping me back.*
