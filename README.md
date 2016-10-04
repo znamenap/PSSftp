@@ -2,7 +2,7 @@
 
 ## PowerShell Provider for SFTP connected drives.
 
-### Motivation
+### The Motivation
 
 Do you connect to SFTP servers and check several files daily? Personally, I don't. 
 Although, I do use it occasianly, I want to be sure, I'm able to work with SFTP quickly and effectively. 
@@ -13,15 +13,18 @@ Though, I started searching for already existing solutions of SFTP support in Po
 
 ### Feature Requirements
 
-- *First of all, I need to be able to do this:*
+- *There is set a module in my PowerShell profile or in PSModulePath folder, so I can import it:*
+    ```Import-Module PSSFtp```
 
-    ```New-PSDrive -Name edu -PSProvider SFtp -Root sftp://node1.echoservice.io/cellular5 -Credential $c```
+- *First of all, I want to be able to do this:*
+
+    ```New-PSDrive -Name edu -PSProvider SFtp -Root sftp://node1.echoservice.io/cellular5/ -Credential $c```
 
 - *secondly, I want to do also this:*
 
     ```Get-ChildItem -Path edu:\net3  -Filter update*.scn | Where-Object { $_.LastWriteTime -gt (Get-Date).AddDays(-1) }```
 
-- *and following on to do somthing like this:*
+- *and following on, to do somthing like this:*
 
     ```Copy-Item edu:\net3\update1.scn edu:\net.bak\update1.scn```
     
@@ -33,3 +36,10 @@ Though, I started searching for already existing solutions of SFTP support in Po
 
     ```Move-Item -Force c:\temp\update1.scn edu:\net3```
 
+
+### Products similar to the motivation
+
+- *[WinSCP - Using WinSCP .NET Assembly from PowerShell](https://winscp.net/eng/docs/library_powershell)*
+- *[The Power of PowerShell](http://www.jamsscheduler.com/doc/JAMSHelp/ThePowerofPowerShell.html)*
+- *[Download SFTP PowerShell Snap-In](http://www.k-tools.nl/index.php/download-sftp-powershell-snap-in/)*
+NOTE: Well, that's not much, right. Plus, even much compatible yet with the motivation, if you found something similiar, ping me back.
