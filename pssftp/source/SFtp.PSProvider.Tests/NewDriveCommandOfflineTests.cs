@@ -4,13 +4,13 @@ using SFtp.PSProvider.Tests.TestFixtures;
 namespace SFtp.PSProvider.Tests
 {
     [TestFixture]
-    public class NewDriveCommandTests : PSModuleTestFixture
+    public class NewDriveCommandOfflineTests : PSModuleTestFixture
     {
         private readonly SFtpServerTestFixture serverTestFixture;
 
-        public NewDriveCommandTests()
+        public NewDriveCommandOfflineTests()
         {
-            serverTestFixture = new SFtpServerTestFixture(true);
+            serverTestFixture = new SFtpServerTestFixture(false);
         }
 
         [OneTimeSetUp]

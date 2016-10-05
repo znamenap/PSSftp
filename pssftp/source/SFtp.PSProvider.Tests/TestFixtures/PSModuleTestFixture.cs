@@ -8,7 +8,8 @@ namespace SFtp.PSProvider.Tests.TestFixtures
         public PSModuleTestFixture()
         {
             SessionState.ImportPSModule(new[] { CommandFactory.GetPSModulePath() });
-            SessionState.Variables.Add(new SessionStateVariableEntry("credential", PasswordFactory.CreateTestingCredential(), "testing credential"));
+            SessionState.Variables.Add(new SessionStateVariableEntry("credential", 
+                PasswordFactory.CreateTestingCredential(), "testing credential"));
 
         }
     }
