@@ -6,11 +6,11 @@ namespace SFtp.PSProvider.Tests
     [TestFixture]
     public class NewDriveCommandTests : PSModuleTestFixture
     {
-        private readonly SFtpServerTestFixture serverTestFixture;
+        private readonly IServerTestFixture serverTestFixture;
 
         public NewDriveCommandTests()
         {
-            serverTestFixture = new SFtpServerTestFixture(true);
+            serverTestFixture = new FtpWareServerTestFixture(true);
         }
 
         [OneTimeSetUp]
@@ -31,7 +31,7 @@ namespace SFtp.PSProvider.Tests
         {
             var executionResult = Execute(
                 new object[] {},
-                "New-PSDrive -Name sftp -PSProvider SFtp -Root sftp://127.0.0.1:2022/ -Credential $credential");
+                "New-PSDrive -Name sftp -PSProvider SFtp -Root sftp://127.0.0.1:10022/ -Credential $credential");
 
             Assert.That(executionResult.ErrorRecords, Is.Empty);
             Assert.That(executionResult.ShellHadErrors, Is.False);

@@ -4,13 +4,14 @@ using SFtp.PSProvider.Tests.TestFixtures;
 namespace SFtp.PSProvider.Tests
 {
     [TestFixture]
+    [Ignore("Pushed back these scenarios for later implementation phase")]
     public class NewDriveCommandOfflineTests : PSModuleTestFixture
     {
-        private readonly SFtpServerTestFixture serverTestFixture;
+        private readonly IServerTestFixture serverTestFixture;
 
         public NewDriveCommandOfflineTests()
         {
-            serverTestFixture = new SFtpServerTestFixture(false);
+            serverTestFixture = new FtpWareServerTestFixture(false);
         }
 
         [OneTimeSetUp]
@@ -31,7 +32,7 @@ namespace SFtp.PSProvider.Tests
         {
             var executionResult = Execute(
                 new object[] {},
-                "New-PSDrive -Name sftp -PSProvider SFtp -Root sftp://127.0.0.1:2022/ -Credential $credential");
+                "New-PSDrive -Name sftp -PSProvider SFtp -Root sftp://127.0.0.1:10022/ -Credential $credential");
 
             Assert.That(executionResult.ErrorRecords, Is.Empty);
             Assert.That(executionResult.ShellHadErrors, Is.False);

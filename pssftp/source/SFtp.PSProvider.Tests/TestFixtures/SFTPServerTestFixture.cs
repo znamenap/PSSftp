@@ -6,14 +6,9 @@ using TimeoutException = System.ServiceProcess.TimeoutException;
 
 namespace SFtp.PSProvider.Tests.TestFixtures
 {
-    internal enum DemandingServerState
+    internal class SFtpServerTestFixture : IServerTestFixture
     {
-        Stopped,
-        Running
-    }
-
-    internal class SFtpServerTestFixture : IDisposable
-    {
+        private const string BitviseServiceName = "BvSshServer-DEV";
         private readonly long maxWaitTimeMs;
         private readonly ServiceController serviceController;
         private readonly ServiceControllerStatus demandingStatus;
@@ -23,7 +18,7 @@ namespace SFtp.PSProvider.Tests.TestFixtures
         {
             this.maxWaitTimeMs = maxWaitTimeMs;
             demandingStatus = shouldBeRunning ? ServiceControllerStatus.Running : ServiceControllerStatus.Stopped;
-            serviceController = new ServiceController("BvSshServer-DEV");
+            serviceController = new ServiceController(BitviseServiceName);
             previousStatus = GetServerStatus(serviceController.Status);
         }
 
@@ -97,6 +92,5 @@ namespace SFtp.PSProvider.Tests.TestFixtures
                     throw new ArgumentOutOfRangeException(nameof(serviceControllerStatus), serviceControllerStatus, null);
             }
         }
-
     }
 }
