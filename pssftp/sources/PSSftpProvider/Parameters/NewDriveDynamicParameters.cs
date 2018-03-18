@@ -1,8 +1,8 @@
 ﻿using System.Management.Automation;
 
-namespace PSSftpProvider
+namespace PSSftpProvider.Parameters
 {
-    internal sealed class NewSftpDriveDynamicParameters
+    internal sealed class NewDriveDynamicParameters
     {
         [Parameter]
         public SwitchParameter Offline { get; set; }

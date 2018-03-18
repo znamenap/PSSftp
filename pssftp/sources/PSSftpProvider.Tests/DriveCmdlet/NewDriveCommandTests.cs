@@ -1,7 +1,8 @@
-﻿using NUnit.Framework;
+﻿using System.Collections;
+using NUnit.Framework;
 using PSSftpProvider.Tests.TestFixtures;
 
-namespace PSSftpProvider.Tests
+namespace PSSftpProvider.Tests.DriveCmdlet
 {
     [TestFixture]
     public class NewDriveCommandTests : PSModuleTestFixture
@@ -11,6 +12,13 @@ namespace PSSftpProvider.Tests
         public NewDriveCommandTests()
         {
             serverTestFixture = new FtpWareServerTestFixture(true);
+            var newDriveParams = new Hashtable
+            {
+                {"Name", "sftp"},
+                {"PSProvider", "Sftp"},
+                {"Root", serverTestFixture.Uri},
+            };
+            AddSessionVariable("NewDriveParams", newDriveParams, "new drive params");
         }
 
         [OneTimeSetUp]
@@ -29,9 +37,9 @@ namespace PSSftpProvider.Tests
         [Test]
         public void TestNewDriveCommand()
         {
-            var executionResult = Execute(
+            var executionResult = Invoke(
                 new object[] { },
-                "New-PSDrive -Name sftp -PSProvider SFtp -Root sftp://127.0.0.1:10022/ -Credential $credential");
+                "New-PSDrive @NewDriveParams -Credential $credential");
 
             Assert.That(executionResult.ErrorRecords, Is.Empty);
             Assert.That(executionResult.ShellHadErrors, Is.False);

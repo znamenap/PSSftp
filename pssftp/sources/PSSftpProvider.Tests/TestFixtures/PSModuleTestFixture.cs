@@ -5,11 +5,27 @@ namespace PSSftpProvider.Tests.TestFixtures
 {
     public class PSModuleTestFixture : PowerShellTestFixture
     {
-        public PSModuleTestFixture()
+        public override void SetUp()
         {
-            SessionState.ImportPSModule(new[] {CommandFactory.GetPSModulePath()});
-            SessionState.Variables.Add(new SessionStateVariableEntry("credential",
-                PasswordFactory.CreateTestingCredential(), "testing credential"));
+            var modulePathItems = new[]
+            {
+                CommandFactory.GetPSModulePath()
+            };
+            SessionState.ImportPSModule(modulePathItems);
+            AddSessionVariable("credential", PasswordFactory.CreateTestingCredential(), "testing credential");
+
+            base.SetUp();
+        }
+
+        public void AddSessionVariable(string name, object value, string description)
+        {
+            SessionState.Variables.Add(new SessionStateVariableEntry(name, value, description));
+        }
+
+        public void AddEnvironmentVariable(string name, object value, string description)
+        {
+            var entry = new SessionStateVariableEntry(name, value, description);
+            SessionState.EnvironmentVariables.Add(entry);
         }
     }
 }

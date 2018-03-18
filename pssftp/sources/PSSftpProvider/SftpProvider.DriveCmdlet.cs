@@ -2,24 +2,20 @@
 using System.Collections.Generic;
 using System.Management.Automation;
 using System.Threading;
+using PSSftpProvider.Parameters;
 using Renci.SshNet;
 
 namespace PSSftpProvider
 {
     public partial class SftpCmdletProvider
     {
-        protected override void StopProcessing()
-        {
-            log.LogMethodBegin(nameof(StopProcessing), "void");
-            base.StopProcessing();
-            log.LogMethodEnd(nameof(StopProcessing), "void");
-        }
+        protected internal SftpDriveInfo DriveInfo => (SftpDriveInfo)PSDriveInfo;
 
         protected override object NewDriveDynamicParameters()
         {
-            log.LogMethodBegin(nameof(NewDriveDynamicParameters), "void");
-            var result = new NewSftpDriveDynamicParameters();
-            log.LogMethodEnd(nameof(NewDriveDynamicParameters), "result : {0}", result);
+            Logger.LogMethodBegin(nameof(NewDriveDynamicParameters), "void");
+            var result = new NewDriveDynamicParameters();
+            Logger.LogMethodEnd(nameof(NewDriveDynamicParameters), "result : {0}", result);
             return result;
         }
 
@@ -38,7 +34,7 @@ namespace PSSftpProvider
                 return null;
             }
 
-            var dynamicParams = DynamicParameters as NewSftpDriveDynamicParameters;
+            var dynamicParams = DynamicParameters as NewDriveDynamicParameters;
             var userName = Thread.CurrentPrincipal.Identity.Name;
             var uri = new Uri(drive.Root);
             var authenticationMethod = new List<AuthenticationMethod>();

@@ -1,17 +1,17 @@
 ﻿using NUnit.Framework;
 using PSSftpProvider.Tests.TestFixtures;
 
-namespace PSSftpProvider.Tests
+namespace PSSftpProvider.Tests.DriveCmdlet
 {
     [TestFixture]
-    //[Ignore("Pushed back these scenarios for later implementation phase")]
     public class NewDriveCommandOfflineTests : PSModuleTestFixture
     {
         private readonly IServerTestFixture serverTestFixture;
 
         public NewDriveCommandOfflineTests()
         {
-            serverTestFixture = new FtpWareServerTestFixture(true);
+            serverTestFixture = new FtpWareServerTestFixture(false);
+            AddSessionVariable("uri", serverTestFixture.Uri.ToString(), "uri to sftp server.");
         }
 
         [OneTimeSetUp]
@@ -19,21 +19,21 @@ namespace PSSftpProvider.Tests
         {
             // Enforce the server is not running.
             serverTestFixture.SetUp();
-            serverTestFixture.TearDown();
-            serverTestFixture.Dispose();
         }
 
         [OneTimeTearDown]
         public void TestFixtureTearDown()
         {
+            serverTestFixture.TearDown();
+            serverTestFixture.Dispose();
         }
 
         [Test]
         public void TestNewDriveCommand()
         {
-            var executionResult = Execute(
+            var executionResult = Invoke(
                 new object[] { },
-                "New-PSDrive -Name sftp -PSProvider SFtp -Root sftp://127.0.0.1:10022/ -Credential $credential -Offline");
+                "New-PSDrive -Name sftp -PSProvider Sftp -Root $uri -Credential $credential -Offline");
 
             Assert.That(executionResult.ErrorRecords, Is.Empty);
             Assert.That(executionResult.ShellHadErrors, Is.False);

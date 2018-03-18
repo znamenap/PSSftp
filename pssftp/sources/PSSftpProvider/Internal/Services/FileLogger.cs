@@ -4,7 +4,7 @@ using System.IO;
 
 namespace PSSftpProvider.Internal.Services
 {
-    internal sealed class SftpLoggerSource : TraceSource, ISftpLogger
+    internal sealed class FileLogger : TraceSource, ILogger
     {
         private const int BeginMethodEventId = 30030;
         private const int EndMethodEventId = 30031;
@@ -16,19 +16,22 @@ namespace PSSftpProvider.Internal.Services
 
         internal const string PSSftpTraceSourceName = "PSSftpProvider";
 
-        private static readonly Lazy<SftpLoggerSource> instance =
-            new Lazy<SftpLoggerSource>(() => new SftpLoggerSource(SourceLevels.All));
+
+        private static readonly Lazy<FileLogger> instance =
+            new Lazy<FileLogger>(() => new FileLogger(SourceLevels.All));
 
         private TextWriterTraceListener textListener;
 
-        internal static ISftpLogger Instance => instance.Value;
+        internal static ILogger Instance => instance.Value;
 
-        public SftpLoggerSource() : base(PSSftpTraceSourceName)
+        public FileLogger() 
+            : base(PSSftpTraceSourceName)
         {
             Initialise();
         }
 
-        public SftpLoggerSource(SourceLevels defaultLevel) : base(PSSftpTraceSourceName, defaultLevel)
+        public FileLogger(SourceLevels defaultLevel) 
+            : base(PSSftpTraceSourceName, defaultLevel)
         {
             Initialise();
         }
@@ -79,7 +82,7 @@ namespace PSSftpProvider.Internal.Services
             textListener.Flush();
         }
 
-        public void Initialise()
+        private void Initialise()
         {
             Switch = new SourceSwitch(PSSftpTraceSourceName, "Verbose");
             Listeners.Remove("Default");

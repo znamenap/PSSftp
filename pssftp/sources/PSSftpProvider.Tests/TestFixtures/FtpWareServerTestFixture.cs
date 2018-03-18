@@ -135,10 +135,21 @@ namespace PSSftpProvider.Tests.TestFixtures
         private readonly bool shouldBeRunning;
         private Process process;
 
+        public string Host { get; }
+        public ushort Port { get; }
+        public Uri Uri { get; }
         public string DataRootPath { get; private set; }
 
         internal FtpWareServerTestFixture(bool shouldBeRunning)
+            : this(shouldBeRunning, "127.0.0.1", 10022)
         {
+        }
+
+        internal FtpWareServerTestFixture(bool shouldBeRunning, string host, ushort port)
+        {
+            Host = host;
+            Port = port;
+            Uri = new Uri($"sftp://{host}:{port}/");
             this.shouldBeRunning = shouldBeRunning;
         }
 
@@ -170,13 +181,13 @@ namespace PSSftpProvider.Tests.TestFixtures
 
                 var config = new FtpWareServerConfig
                 {
-                    BindAddress = "127.0.0.1",
+                    BindAddress = Host,
                     DataRootPath = DataRootPath,
                     ExeRootPath = rootPath,
                     ZLib = true,
                     Fips = true,
                     Nagle = true,
-                    Port = 10022,
+                    Port = Port,
                     ShowHiddenFiles = true,
                     Scp = true,
                     Username = "username",

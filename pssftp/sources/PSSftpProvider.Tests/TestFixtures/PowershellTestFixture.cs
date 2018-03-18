@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
-using NUnit.Framework;
 
 namespace PSSftpProvider.Tests.TestFixtures
 {
@@ -31,49 +30,75 @@ namespace PSSftpProvider.Tests.TestFixtures
         }
     }
 
-    public class PowerShellTestFixture
+    public interface ITestFixture
     {
-        public InitialSessionState SessionState { get; set; }
-        public PowerShell Shell { get; set; }
+        void SetUp();
 
-        public PowerShellTestFixture()
+        void TearDown();
+    }
+
+    public class SessionStateTestFixture : ITestFixture
+    {
+        public InitialSessionState SessionState { get; private set; }
+
+        public void SetUp()
         {
             SessionState = InitialSessionState.CreateDefault2();
         }
 
-        [OneTimeSetUp]
-        public void SetUpShell()
+        public void TearDown()
         {
-            Shell = PowerShell.Create(SessionState);
+        }
+    }
+
+    public class PowerShellTestFixture : ITestFixture
+    {
+
+        public PowerShell Shell { get; private set; }
+
+
+        public virtual void SetUp()
+        {
         }
 
-        [OneTimeTearDown]
-        public void TearDownShell()
+        public virtual void TearDown()
         {
             if (Shell != null)
             {
                 Shell.Dispose();
+                Shell = null;
             }
         }
 
-        public PowerShellExecutionResult Execute(IEnumerable inputs, params string[] lines)
+        public PowerShellExecutionResult Invoke(IEnumerable inputs, params string[] lines)
         {
-            var outputLines = new List<string>();
+            Shell = PowerShell.Create(SessionState);
+            return Invoke(Shell, inputs, lines);
+        }
 
+        public PowerShellExecutionResult Invoke(PowerShell shell, IEnumerable inputs, params string[] lines)
+        {
             foreach (var line in lines)
             {
-                Shell.AddScript(line);
+                shell.AddScript(line);
             }
 
-            Shell.Streams.ClearStreams();
-            var outputObjects = inputs != null ? Shell.Invoke(inputs) : Shell.Invoke();
-            var errorObjects = Shell.Streams.Error.ToList();
-            errorObjects.ForEach(record => Console.Error.WriteLine("{0}{1}{2}{3}", record.ToString(),
-                Environment.NewLine,
-                record.ErrorDetails, Environment.NewLine));
+            shell.Streams.ClearStreams();
+            var outputLines = new List<string>();
+
+            var outputObjects = inputs != null ? shell.Invoke(inputs) : shell.Invoke();
+
+            var errorObjects = shell.Streams.Error.ToList();
+            errorObjects.ForEach(WriteConsoleError);
 
             return new PowerShellExecutionResult(outputLines.ToArray(), outputObjects.ToArray(), errorObjects.ToArray(),
-                Shell.InvocationStateInfo, Shell.HadErrors);
+                shell.InvocationStateInfo, shell.HadErrors);
+        }
+
+        private static void WriteConsoleError(ErrorRecord record)
+        {
+            Console.Error.WriteLine("{0}{1}{2}{3}", record, Environment.NewLine, record.ErrorDetails,
+                Environment.NewLine);
         }
     }
 }

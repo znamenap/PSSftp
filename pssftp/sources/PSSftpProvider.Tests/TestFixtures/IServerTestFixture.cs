@@ -6,5 +6,9 @@ namespace PSSftpProvider.Tests.TestFixtures
     {
         void SetUp();
         void TearDown();
+        string Host { get; }
+        ushort Port { get; }
+        Uri Uri { get; }
+        string DataRootPath { get; }
     }
 }

@@ -2,6 +2,6 @@
 {
     public class Globals
     {
-        public const string ProviderName = "SFtp";
+        public const string ProviderName = "Sftp";
     }
 }

@@ -16,6 +16,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSSftpProvider", "sources\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSSftpProvider.Tests", "sources\PSSftpProvider.Tests\PSSftpProvider.Tests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{88172BCB-7543-4513-8EFD-E78476B8455C}"
+EndProject
+Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "docs", "resources\docs\docs.pssproj", "{1CF6FBC3-D80E-44DB-AB32-2CE8B72A2E47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +38,10 @@ Global
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CF6FBC3-D80E-44DB-AB32-2CE8B72A2E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CF6FBC3-D80E-44DB-AB32-2CE8B72A2E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CF6FBC3-D80E-44DB-AB32-2CE8B72A2E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CF6FBC3-D80E-44DB-AB32-2CE8B72A2E47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,6 +50,7 @@ Global
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51} = {A00646A1-DC66-4BB9-99B8-5479146E348D}
 		{A915668E-C333-44C9-80F4-10C0DFA0B8BB} = {AAB8CCDB-268C-4FBC-A172-99F4B374344B}
 		{8EDF4429-251A-416D-BB68-93F227191BCF} = {AAB8CCDB-268C-4FBC-A172-99F4B374344B}
+		{1CF6FBC3-D80E-44DB-AB32-2CE8B72A2E47} = {88172BCB-7543-4513-8EFD-E78476B8455C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C3DA47BD-AE54-47E8-AF5E-F51AA11B1F84}

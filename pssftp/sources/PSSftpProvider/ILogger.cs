@@ -1,6 +1,6 @@
 ﻿namespace PSSftpProvider
 {
-    public interface ISftpLogger
+    public interface ILogger
     {
         void LogCritical(string format, params object[] args);
         void LogDebug(string format, params object[] args);

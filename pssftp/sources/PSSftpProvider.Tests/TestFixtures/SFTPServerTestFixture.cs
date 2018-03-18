@@ -12,6 +12,11 @@ namespace PSSftpProvider.Tests.TestFixtures
         private readonly ServiceControllerStatus previousStatus;
         private readonly ServiceController serviceController;
 
+        public string Host { get; }
+        public ushort Port { get; }
+        public Uri Uri { get; }
+        public string DataRootPath { get; }
+
         public SFtpServerTestFixture(bool shouldBeRunning, long maxWaitTimeMs = 3000)
         {
             this.maxWaitTimeMs = maxWaitTimeMs;

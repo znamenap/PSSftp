@@ -13,7 +13,7 @@ namespace PSSftpProvider.Tests
         [Test]
         public void TestImportModule()
         {
-            var executionResult = Execute(null, CommandFactory.GetImportSftpPSProviderCommand());
+            var executionResult = Invoke(null, CommandFactory.GetImportSftpPSProviderCommand());
 
             Assert.That(executionResult, Is.Not.Null);
             Assert.That(executionResult.ShellHadErrors, Is.False);
